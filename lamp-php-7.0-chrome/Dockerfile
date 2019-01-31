@@ -14,10 +14,10 @@ RUN \
 RUN apt-get update \
     && apt-get install -y supervisor git
 
-ADD start-apache2.sh /start-apache2.sh
-ADD start-mysqld.sh /start-mysqld.sh
-ADD supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
-ADD supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
+COPY start-apache2.sh /start-apache2.sh
+COPY start-mysqld.sh /start-mysqld.sh
+COPY supervisord-apache2.conf /git stetc/supervisor/conf.d/supervisord-apache2.conf
+COPY supervisord-mysqld.conf /etc/supervisor/conf.d/supervisord-mysqld.conf
 
 # Install Chrome
 RUN \
