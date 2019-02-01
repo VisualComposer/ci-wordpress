@@ -3,6 +3,6 @@ set -m
 # set -e
 # set -o pipefail
 
-exec supervisord 
+exec supervisord -n
 
 fg %1
