@@ -1,3 +1,8 @@
 #!/bin/bash
-set -e
-exec supervisord
+set -m
+# set -e
+# set -o pipefail
+
+exec supervisord 
+
+fg %1
