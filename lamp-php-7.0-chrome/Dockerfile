@@ -22,6 +22,7 @@ RUN \
 # Install supervisor
 RUN apt-get install -y supervisor git
 
+# Start apache2 and mysql
 COPY start-apache2.sh /start-apache2.sh
 COPY start-mysqld.sh /start-mysqld.sh
 COPY supervisord-apache2.conf /etc/supervisor/conf.d/supervisord-apache2.conf
