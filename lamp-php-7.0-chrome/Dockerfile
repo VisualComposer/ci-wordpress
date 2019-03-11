@@ -1,4 +1,4 @@
-FROM wpbakery/ci-wordpress:php7
+FROM wpbakery/ci-wordpress
 
 USER root
 
