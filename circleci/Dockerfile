@@ -3,7 +3,7 @@ FROM circleci/php:7.3.2-apache
 # Install packages
 RUN \
   sudo apt-get update || sudo apt-get update && \
-  sudo apt-get install -y apt-transport-https lsb-release && \
+  sudo apt-get install -y apt-transport-https lsb-release software-properties-common && \
   sudo apt-get install -y libzip-dev && \
   sudo apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev
 
@@ -18,7 +18,7 @@ RUN \
   sudo apt-get -y install mysql-client
 # Install tools for Wordpress
 RUN \
-  sudo mv ci/wp-tests-8.0.0.tar.gz /opt && \
+  sudo mv ./wp-tests-8.0.0.tar.gz /opt && \
   sudo tar -zxvf /opt/wp-tests-8.0.0.tar.gz -C /opt && sudo chown root:root /opt/wp-tests -R && \
   curl --insecure -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
   chmod +x wp-cli.phar && \
