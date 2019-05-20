@@ -33,5 +33,24 @@ RUN wp core download --path=/var/www/html --allow-root
 ARG DOCKERIZE_VERSION=v0.3.0
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
+# Install node and chrome
+RUN \
+  sudo curl -sL https://deb.nodesource.com/setup_11.x | sudo bash - && \
+  sudo apt-get install nodejs && \
+  sudo npm install -g yarn && \
+  wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
+  echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google.list && \
+  sudo apt-get update && \
+  sudo apt-get install -y dbus-x11 google-chrome-stable
+
+# Install required libs for cypress
+RUN \
+  sudo rm -rf /var/lib/apt/lists/* && \
+  sudo apt-get update && sudo apt-get install -y libgtk2.0-0 libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 xvfb && \
+  export DBUS_SESSION_BUS_ADDRESS=/dev/null && \
+  export TERM=xterm && \
+  export npm_config_loglevel=warn && \
+  export npm_config_unsafe_perm=true
+
 # Define default command.
 CMD ["bash"]
