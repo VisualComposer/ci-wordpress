@@ -17,6 +17,11 @@ RUN \
   sudo docker-php-ext-install gd && \
   sudo apt-get -y install mysql-client
 
+# Enable Exif PHP extentions requirements
+RUN \
+    sudo docker-php-ext-install exif && \
+    sudo docker-php-ext-enable exif
+
 # Install tools for Wordpress
 ADD wp-tests-8.0.0.tar.gz /
 RUN \
