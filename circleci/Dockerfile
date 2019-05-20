@@ -16,14 +16,17 @@ RUN \
   sudo docker-php-ext-install pdo pdo_mysql mysqli && \
   sudo docker-php-ext-install gd && \
   sudo apt-get -y install mysql-client
+
 # Install tools for Wordpress
-ADD ./wp-tests-8.0.0.tar.gz /
+ADD wp-tests-8.0.0.tar.gz /
 RUN \
-  sudo mv /wp-tests-8.0.0.tar.gz /opt && \
-  sudo tar -zxvf /opt/wp-tests-8.0.0.tar.gz -C /opt && sudo chown root:root /opt/wp-tests -R && \
+  sudo mv /wp-tests /opt && \
+  sudo chown root:root /opt/wp-tests -R && \
   curl --insecure -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
   chmod +x wp-cli.phar && \
   sudo mv wp-cli.phar /usr/local/bin/wp
 
+# Download and configure Wordpress
+RUN wp core download --path=/var/www/html --allow-root
 # Define default command.
 CMD ["bash"]
