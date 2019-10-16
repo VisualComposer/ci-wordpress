@@ -57,5 +57,6 @@ RUN \
   export npm_config_loglevel=warn && \
   export npm_config_unsafe_perm=true
 
+ADD vcv-auto-authorize.php /var/www/html/wp-content/plugins/
 # Define default command.
 CMD ["bash"]
