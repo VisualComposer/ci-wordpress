@@ -8,6 +8,8 @@ RUN \
   apt-get install -y wget && \
   apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev
 
+RUN apt-get install -y
+
 # Install packages for php and mysql
 RUN \
   apt-get update && \
@@ -56,5 +58,6 @@ RUN \
   export npm_config_loglevel=warn && \
   export npm_config_unsafe_perm=true
 
+ADD vcv-auto-authorize.php /var/www/html/wp-content/plugins/
 # Define default command.
 CMD ["bash"]
