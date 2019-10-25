@@ -21,9 +21,9 @@ RUN \
   apt-get -y install mysql-client
 
 # Enable Exif PHP extentions requirements
-# RUN \
-#     docker-php-ext-install exif && \
-#     docker-php-ext-enable exif
+RUN \
+    docker-php-ext-install exif && \
+    docker-php-ext-enable exif
 
 # Install tools for Wordpress
 RUN \
