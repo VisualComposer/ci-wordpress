@@ -8,7 +8,7 @@ RUN \
   apt-get install -y wget && \
   apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev
 
-RUN apt-get install -y
+RUN apt-get install -y git
 
 # Install packages for php and mysql
 RUN \
