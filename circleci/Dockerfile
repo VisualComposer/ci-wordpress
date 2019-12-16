@@ -23,13 +23,18 @@ RUN \
     sudo docker-php-ext-enable exif
 
 # Install tools for Wordpress
-ADD wp-tests-8.0.0.tar.gz /
+ADD wp-tests-8.0.1.tar.gz /
 RUN \
   sudo mv /wp-tests /opt && \
   sudo chown root:root /opt/wp-tests -R && \
   curl --insecure -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
   chmod +x wp-cli.phar && \
   sudo mv wp-cli.phar /usr/local/bin/wp
+
+# Install GO (required for phpgrep)
+RUN sudo curl -O https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
+    && sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+RUN sudo /usr/local/go/bin/go get -v github.com/quasilyte/phpgrep/cmd/phpgrep && sudo chmod +x /root/go/bin/phpgrep && sudo mv /root/go/bin/phpgrep /usr/local/bin/phpgrep
 
 # Download and configure Wordpress
 RUN wp core download --path=/var/www/html --allow-root
