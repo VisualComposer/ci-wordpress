@@ -6,6 +6,7 @@ RUN \
   apt-get install -y apt-transport-https lsb-release software-properties-common && \
   apt-get install -y libzip-dev && \
   apt-get install -y wget && \
+  apt-get install -y unzip && \
   apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev
 
 RUN apt-get install -y git
@@ -58,6 +59,5 @@ RUN \
   export npm_config_loglevel=warn && \
   export npm_config_unsafe_perm=true
 
-ADD vcv-auto-authorize.php /var/www/html/wp-content/plugins/
 # Define default command.
 CMD ["bash"]
