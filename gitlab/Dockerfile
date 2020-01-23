@@ -26,6 +26,8 @@ RUN \
     docker-php-ext-install exif && \
     docker-php-ext-enable exif
 
+ADD docker-php-memlimit.ini /usr/local/etc/php/conf.d/
+
 # Install tools for Wordpress
 RUN \
   curl --insecure -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
