@@ -45,7 +45,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 
 # Install node and chrome
 RUN \
-  sudo curl -sL https://deb.nodesource.com/setup_11.x | sudo bash - && \
+  sudo curl -sL https://deb.nodesource.com/setup_14.x | sudo bash - && \
   sudo apt-get install nodejs && \
   sudo npm install -g yarn && \
   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
