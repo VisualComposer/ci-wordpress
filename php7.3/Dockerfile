@@ -61,7 +61,7 @@ RUN find /var/lib/mysql -exec touch {} \; && /etc/init.d/mysql start \
 
 # Install node and chrome
 RUN \
-  curl -sL https://deb.nodesource.com/setup_11.x | bash - && \
+  curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
   apt-get install -y nodejs && \
   npm install -g yarn
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
