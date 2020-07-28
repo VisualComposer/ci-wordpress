@@ -32,8 +32,8 @@ RUN \
   sudo mv wp-cli.phar /usr/local/bin/wp
 
 # Install GO (required for phpgrep)
-RUN sudo curl -O https://dl.google.com/go/go1.13.linux-amd64.tar.gz \
-    && sudo tar -C /usr/local -xzf go1.13.linux-amd64.tar.gz
+RUN sudo curl -O https://dl.google.com/go/go1.14.linux-amd64.tar.gz \
+    && sudo tar -C /usr/local -xzf go1.14.linux-amd64.tar.gz
 RUN sudo /usr/local/go/bin/go get -v github.com/quasilyte/phpgrep/cmd/phpgrep && sudo chmod +x /root/go/bin/phpgrep && sudo mv /root/go/bin/phpgrep /usr/local/bin/phpgrep
 
 # Download and configure Wordpress
