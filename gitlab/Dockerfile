@@ -44,7 +44,7 @@ RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSI
 # Install node and chrome
 RUN \
   apt-get -y install libpython-stdlib nodejs python python-minimal python2.7 python2.7-minimal && \
-  curl -sL https://deb.nodesource.com/setup_12.x | bash - && \
+  curl -sL https://deb.nodesource.com/setup_13.x | bash - && \
   apt-get install nodejs && \
   npm install -g yarn && \
   wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
