@@ -7,7 +7,7 @@ RUN \
   apt install -y libzip-dev && \
   apt install -y wget && \
   apt install -y unzip && \
-  apt install -y zlib1g-dev libicu-dev g++ libpng-dev
+  apt install -y zlib1g-dev libicu-dev g++ libpng-dev curl
 
 RUN apt install -y git
 
@@ -39,7 +39,8 @@ RUN apt install -y php7.4 \
                     php7.4-json \
                     php7.4-opcache \
                     php7.4-readline \
-                    php7.4-exif
+                    php7.4-exif \
+                    php7.4-curl
 
 RUN a2enmod php7.4
 RUN php --version

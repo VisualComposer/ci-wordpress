@@ -7,7 +7,7 @@ RUN \
   apt-get install -y libzip-dev && \
   apt-get install -y wget && \
   apt-get install -y unzip && \
-  apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev curl
+  apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev
 
 RUN apt-get install -y git
 
@@ -15,7 +15,6 @@ RUN apt-get install -y git
 RUN \
   apt-get update && \
   docker-php-ext-install zip && \
-  docker-php-ext-install curl && \
   docker-php-ext-configure intl && \
   docker-php-ext-install intl && \
   docker-php-ext-install pdo pdo_mysql mysqli && \
