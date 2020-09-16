@@ -2,17 +2,17 @@ FROM cypress/browsers:node14.7.0-chrome84
 
 # Install packages
 RUN \
-  apt update || apt-get update && \
-  apt install -y apt-transport-https lsb-release software-properties-common && \
-  apt install -y libzip-dev && \
-  apt install -y wget && \
-  apt install -y unzip && \
-  apt install -y zlib1g-dev libicu-dev g++ libpng-dev curl
+  apt-get update || apt-get update && \
+  apt-get install -y apt-transport-https lsb-release software-properties-common && \
+  apt-get install -y libzip-dev && \
+  apt-get install -y wget && \
+  apt-get install -y unzip && \
+  apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev curl
 
-RUN apt install -y git
+RUN apt-get install -y git
 
 # Install apache
-RUN apt install -y apache2 apache2-utils && \
+RUN apt-get install -y apache2 apache2-utils && \
 # iptables -I INPUT -p tcp --dport 80 -j ACCEPT && \
 # ufw allow http && \
   echo "ServerName localhost" >> /etc/apache2/conf-available/servername.conf > /dev/null && \
@@ -20,17 +20,17 @@ RUN apt install -y apache2 apache2-utils && \
 
 # Install mysql client
 RUN \
-  apt update && \
-  apt install -y default-mysql-client
+  apt-get update && \
+  apt-get install -y default-mysql-client
 
 # Install PHP 7.4
 RUN \
-  apt install -y apt-transport-https lsb-release ca-certificates wget && \
+  apt-get install -y apt-transport-https lsb-release ca-certificates wget && \
   wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg && \
   echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" >> /etc/apt/sources.list.d/php.list && \
   apt-get update
 
-RUN apt install -y php7.4 \
+RUN apt-get install -y php7.4 \
                     libapache2-mod-php7.4 \
                     php7.4-mysql \
                     php-common \
