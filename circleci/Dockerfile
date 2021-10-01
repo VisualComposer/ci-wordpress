@@ -5,12 +5,14 @@ RUN \
   sudo apt-get update || sudo apt-get update && \
   sudo apt-get install -y apt-transport-https lsb-release software-properties-common && \
   sudo apt-get install -y libzip-dev && \
-  sudo apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev
+  sudo apt-get install -y zlib1g-dev libicu-dev g++ libpng-dev && \
+  sudo apt-get install -y openssl
 
 # Install packages for php and mysql
 RUN \
   sudo apt-get update && \
   sudo docker-php-ext-install zip && \
+  sudo docker-php-ext-install curl && \
   sudo docker-php-ext-configure intl && \
   sudo docker-php-ext-install intl && \
   sudo docker-php-ext-install pdo pdo_mysql mysqli && \
