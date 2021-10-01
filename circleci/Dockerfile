@@ -1,4 +1,4 @@
-FROM circleci/php:7.3.2-apache
+FROM circleci/php:7.4-apache
 
 # Install packages
 RUN \
