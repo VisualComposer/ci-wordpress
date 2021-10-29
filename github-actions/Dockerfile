@@ -1,4 +1,4 @@
-FROM cypress/browsers:node14.7.0-chrome84
+FROM cypress/browsers:node16.5.0-chrome94-ff93
 
 # Install packages
 RUN \
