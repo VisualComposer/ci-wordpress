@@ -8,12 +8,15 @@ RUN \
 
 # install mariadb
 RUN sudo apt-get update && sudo apt-get install -y mariadb-server mariadb-client
+
 # setup the mariadb
 RUN sudo mysql_install_db --user=mysql --ldata=/var/lib/mysql
 RUN sudo service mysql start && sudo mysql -e "CREATE DATABASE wordpress;" \
      && sudo mysql -e "CREATE USER 'wordpress'@'localhost' IDENTIFIED BY 'wordpress';" \
      && sudo mysql -e "GRANT ALL PRIVILEGES ON wordpress.* TO 'wordpress'@'localhost';" \
      && sudo mysql -e "FLUSH PRIVILEGES;"
+
+# cypress dependencies
 RUN sudo apt-get update && sudo apt-get install libgtk2.0-0 libgtk-3-0 libgbm-dev libnotify-dev libgconf-2-4 libnss3 libxss1 libasound2 libxtst6 xauth xvfb
 
 USER circleci
@@ -27,10 +30,16 @@ ARG DOCKERIZE_VERSION=v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && sudo tar -C /usr/local/bin -xzvf dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 ADD vcv-auto-authorize.php /var/www/html/wp-content/plugins/
-# run php built in server with multithreads PHP_CLI_SERVER_WORKERS=30 php -s localhost:80 -t /var/www/html
-RUN sudo service mysql start && wp core config --path=/var/www/html --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=0.0.0.0 --allow-root
-RUN sudo service mysql start && wp core install --path=/var/www/html --url=http://localhost --title=wordpress --admin_user=admin --admin_password=admin --admin_email=admin@local.local --skip-email --allow-root
 
+# install wordpress
+RUN sudo service mysql start &&  \
+    wp core config --path=/var/www/html --dbname=wordpress --dbuser=wordpress --dbpass=wordpress --dbhost=0.0.0.0 --allow-root \
+    && wp core install --path=/var/www/html --url=http://localhost --title=wordpress --admin_user=admin --admin_password=admin --admin_email=admin@local.local --skip-email --allow-root \
+    && wp plugin install wordpress-importer --activate --path=/var/www/html --allow-root \
+    && curl -OL https://raw.githubusercontent.com/poststatus/wptest/master/wptest.xml  \
+    && wp import wptest.xml --authors=create --path=/var/www/html --allow-root && rm wptest.xml
+
+# setup auto urls
 RUN sed -i '1i\
 <?php \
 #Identify the relevant protocol for the current request\
@@ -39,5 +48,5 @@ RUN sed -i '1i\
 define("WP_SITEURL", \$protocol . "://" . \$_SERVER["HTTP_HOST"]);\
 define("WP_HOME", \$protocol . "://" . \$_SERVER["HTTP_HOST"]); ?>' /var/www/html/wp-config.php
 
-#ENV PHP_CLI_SERVER_WORKERS=30
+ENV PHP_CLI_SERVER_WORKERS=30
 CMD sudo service mysql start && sudo dockerize -wait tcp://localhost:3306 -timeout 60s && PHP_CLI_SERVER_WORKERS=30 php -S 0.0.0.0:80 -t /var/www/html
